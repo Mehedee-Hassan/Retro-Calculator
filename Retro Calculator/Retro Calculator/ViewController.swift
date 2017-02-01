@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var buttonSound: AVAudioPlayer!
     
     var equalPressed = false
-    
+    var calculatorTurnedOn = true
     
     @IBOutlet weak var counterLabel: UILabel!
     
@@ -269,8 +269,14 @@ class ViewController: UIViewController {
                     
                     op = Operation.Empty
                     
-                    result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
-                    
+                    if calculatorTurnedOn == true {
+                        calculatorTurnedOn = false
+                        result = "\(Double(rightNumber)!)"
+                        
+                    }else {
+                        
+                        result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
+                    }
                 }
                 else if op == Operation.Devide{
                     
