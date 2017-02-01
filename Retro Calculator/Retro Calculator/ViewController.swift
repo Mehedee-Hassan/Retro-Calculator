@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     var equalPressed = false
     var calculatorTurnedOn = true
+    var pressedFlag = -1 // 1= number ,2 = operation ,3 = equals
+    
     
     @IBOutlet weak var counterLabel: UILabel!
     
@@ -61,10 +63,24 @@ class ViewController: UIViewController {
     
     @IBAction func onNumberPressedPlay(sender: UIButton){
         
+        
         if equalPressed == true {
             counterLabel.text = ""
+           // result = ""
+           // leftNumber = "0"
             equalPressed = false
+        
+            
+            if pressedFlag != 2 {
+                leftNumber = "0"
+                result = ""
+            }
+            
         }
+        
+        
+        
+        pressedFlag = 1
         
         presentNumber += "\(sender.tag)"
         
@@ -133,6 +149,7 @@ class ViewController: UIViewController {
     
     func processEqual(){
         
+       
         
         print ("\npresent = \(presentNumber) \nresult=\(result) ")
         
@@ -230,6 +247,9 @@ class ViewController: UIViewController {
     
     func processOperation(operation :Operation){
         
+        
+        pressedFlag = 2
+        
         var op = operation;
         
         if op != Operation.Empty{
@@ -286,7 +306,16 @@ class ViewController: UIViewController {
                     
                     
                     if tempnum != 0{
-                        result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                        
+                        if calculatorTurnedOn == true {
+                            calculatorTurnedOn = false
+                            result = "\(Double(rightNumber)!)"
+                            
+                        }else {
+                            result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                        }
+                        
+                       
                     }
                     else {
                         result = "INF"
