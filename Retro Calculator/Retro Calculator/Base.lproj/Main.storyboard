@@ -159,6 +159,9 @@
                                                     <constraint firstAttribute="height" constant="55" id="mpo-tb-Bjx"/>
                                                 </constraints>
                                                 <state key="normal" image="multiply"/>
+                                                <connections>
+                                                    <action selector="onMultiplyPressWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TXX-f4-J8Y"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KpY-z0-RuK" userLabel="0">
                                                 <constraints>
@@ -180,6 +183,9 @@
                                                     <constraint firstAttribute="height" constant="55" id="nAz-hI-cW7"/>
                                                 </constraints>
                                                 <state key="normal" image="subtract"/>
+                                                <connections>
+                                                    <action selector="onSubtractPressWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MxS-cv-okt"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJ8-A9-BZc" userLabel="devide">
                                                 <constraints>
@@ -187,6 +193,9 @@
                                                     <constraint firstAttribute="height" constant="55" id="x4d-Dk-jW4"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="divide"/>
+                                                <connections>
+                                                    <action selector="onDevidePressWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="95Z-4l-7fJ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbH-Ie-Tku" userLabel="equal">
                                                 <constraints>

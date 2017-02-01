@@ -208,10 +208,10 @@ class ViewController: UIViewController {
                     
                     
                     counterLabel.text = result
-                    leftNumber = "0"
+                    leftNumber = result
                     
                     
-                    presentNumber = result;
+                    presentNumber = "";
                     
                     
                     currentOperation = Operation.Empty;
