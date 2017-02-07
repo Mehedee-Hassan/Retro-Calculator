@@ -28,9 +28,9 @@ class ViewController: UIViewController {
     
     enum Operation : String {
         
-        case Devide = "/"
+        case Division = "/"
         case Multiply  = "*"
-        case Substract = "-"
+        case Subtract = "-"
         case Add = "+"
         case Empty  = "NIL"
     }
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
     
     @IBAction func onSubtractPress(sender: UIButton){
           print ("\n__TAG \(presentNumber)\n")
-        processOperation(operation: Operation.Substract)
+        processOperation(operation: Operation.Subtract)
     }
     
     
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
     
     @IBAction func onDevidePress(sender: UIButton){
           print ("\n__TAG \(presentNumber)\n")
-        processOperation(operation: Operation.Devide)
+        processOperation(operation: Operation.Division)
     }
     
     
@@ -191,12 +191,12 @@ class ViewController: UIViewController {
                         
                         op = Operation.Empty
                         
-                    }else if op == Operation.Substract {
+                    }else if op == Operation.Subtract {
                         
                         op = Operation.Empty
                         
                         
-                        result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
+                        result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
                         
                     }
                     else if op == Operation.Multiply {
@@ -206,7 +206,7 @@ class ViewController: UIViewController {
                         result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
                         
                     }
-                    else if op == Operation.Devide{
+                    else if op == Operation.Division{
                         
                         op = Operation.Empty
                         
@@ -277,12 +277,12 @@ class ViewController: UIViewController {
                     
                     op = Operation.Empty
                     
-                }else if op == Operation.Substract {
+                }else if op == Operation.Subtract {
                     
                     op = Operation.Empty
                     
                     
-                    result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
+                    result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
                     
                 }
                 else if op == Operation.Multiply {
@@ -298,7 +298,7 @@ class ViewController: UIViewController {
                         result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
                     }
                 }
-                else if op == Operation.Devide{
+                else if op == Operation.Division{
                     
                     op = Operation.Empty
                     
