@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var counterLabel: UILabel!
     
     
-    var presentNumber = ""
+    
     
     
     enum Operation : String {
@@ -30,6 +30,24 @@ class ViewController: UIViewController {
         case Subtract = "-"
         case Add = "+"
         case Empty  = "NIL"
+    }
+    
+    
+    enum PressedFlag :Int {
+        case Number = 1
+        case Operator = 2
+        case Equal = 3
+        
+        case EqualAfterOperator = 4
+        case EqualAfterNumber = 5
+        
+        
+        case OperatorAfterEqual = 6
+        case OperatorAfterNumber = 7
+        case OperatorAfterOperator = 8
+        
+        
+        case Empty = -1
     }
     
     
@@ -65,20 +83,39 @@ class ViewController: UIViewController {
 
     
     var currentOperation = Operation.Empty
-    var rightNumber = "0";
-    var leftNumber = "0";
-    var result = "0";
-    var __op = Operation.Empty;
 
+    var rightNumber = "";
+    
+    var leftNumber = "";
+    var presentNumber = ""
+    
+    var result = "";
+    var __op = Operation.Empty;
+    
+    var _NumOpNum = -1
     
     
     var equalPressed = false
     var calculatorTurnedOn = true
-    var pressedFlag = -1 // 1= number ,2 = operation ,3 = equals
+    var pressedFlag = PressedFlag.Empty
+    
+    // 1= number ,2 = operation ,3 = equals
     
     
     
     @IBAction func onNumberPressedPlay(sender: UIButton){
+        
+        
+        
+        
+        if pressedFlag == PressedFlag.Equal {
+            
+            presentNumber = ""
+            leftNumber = ""
+            rightNumber = ""
+            result = ""
+            
+        }
         
         
         
@@ -89,7 +126,15 @@ class ViewController: UIViewController {
         playSound()
         
         
-        pressedFlag = 1 // number pressed
+        if _NumOpNum == 2{
+            _NumOpNum = 3 // chain of number op number op
+        }
+        else{
+            _NumOpNum = 1
+        }
+        
+        
+        pressedFlag = PressedFlag.Number
         
     }
 
@@ -99,17 +144,21 @@ class ViewController: UIViewController {
         
         
         
-        if pressedFlag == 1{
-            pressedFlag = 3 // number before equal
-        }
-        else if pressedFlag == 2{
-            pressedFlag = 5 // operator before equal
-        }
-        else if pressedFlag == -1 {
-            pressedFlag = 6 // equal pressed first time
-        }
+        pressedFlag = PressedFlag.Equal
+        
+       
         
         processEqual()
+        
+        // no need
+        currentOperation = Operation.Empty
+        
+        //init
+        rightNumber = "";
+        presentNumber = ""
+        result = "";
+        
+        
         
     }
     
@@ -156,16 +205,172 @@ class ViewController: UIViewController {
     
     
     
-    func processEqual(){}
+    func processEqual(){
+        
+        
+        rightNumber = presentNumber
+        presentNumber = ""
+    
+        if pressedFlag == PressedFlag.Equal {
+            
+            //result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
+            
+            
+            if currentOperation !=  Operation.Empty{
+                
+                if rightNumber != "" && leftNumber != ""{
+                  
+                    performAction()
+                    
+                    
+                    counterLabel.text = result  // lebel text
+                    leftNumber = result         //left number is now result
+                
+                }
+                else if rightNumber != ""{
+            
+                    leftNumber = rightNumber
+                
+                }
+            
+            }
+            else {
+                
+                if result != "" {
+                
+                    counterLabel.text = result  // lebel text
+                    leftNumber = result         //left number is now result
+                    
+                }
+                else if rightNumber != "" {
+                    
+                    counterLabel.text = rightNumber  // lebel text
+                    leftNumber = rightNumber         //left number is now present
+                    
+                }
+                
+            }
+            
+            
+            
+            
+        }
+        
+    }
     
     
     
     
     
-    func processOperation(operation :Operation){}
+    func processOperation(operation :Operation){
+        
+        currentOperation = operation // set pressed current operation
+        rightNumber = presentNumber
+        presentNumber = ""
+        
+        
+        
+        
+        if pressedFlag == PressedFlag.Number {
+            
+            //result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
+            
+            
+            
+                if rightNumber != "" && leftNumber != ""{
+                    
+                    performAction()
+                    
+                    counterLabel.text = result  // lebel text
+                    leftNumber = result         //left number is now result
+                    
+                }
+                else if rightNumber != ""{
+                    
+                    leftNumber = rightNumber
+                    
+                }
+                
+            
+            
+            
+            
+            
+        }else if _NumOpNum == 3 {
+            
+            if rightNumber != "" && leftNumber != ""{
+                
+                performAction()
+                
+                counterLabel.text = result  // lebel text
+                leftNumber = result         //left number is now result
+                
+            }
+            else if rightNumber != ""{
+                
+                leftNumber = rightNumber
+                
+            }
+            
+        }
+        
+        
+        
+        pressedFlag = PressedFlag.Operator
+        _NumOpNum = 2
+    
+    }
     
     
     
+    func performAction(){
+    
+        
+        if currentOperation == Operation.Multiply {
+            
+            
+            result  = "\(Double(leftNumber)! * (Double(rightNumber))!)"
+            
+            print( "\ndebug1 equal press:\n result   = \(result) \n left = \(leftNumber) \n right= \(rightNumber)" )
+        }
+            
+        else if currentOperation == Operation.Add {
+            
+            
+            result  = "\(Double(leftNumber)! + (Double(rightNumber))!)"
+            
+            print( "\ndebug1 equal press:\n result   = \(result) \n left = \(leftNumber) \n right= \(rightNumber)" )
+        }
+            
+        else if currentOperation == Operation.Subtract {
+            
+            
+            result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+            
+            print( "\ndebug1 equal press:\n result   = \(result) \n left = \(leftNumber) \n right= \(rightNumber)" )
+        }
+            
+        else if currentOperation == Operation.Division {
+            
+            
+            let tempNumber = Double(rightNumber)!
+            
+            if tempNumber == 0 {
+                
+                result = "INF"
+                
+            }else {
+                result  = "\(Double(leftNumber)! / tempNumber)"
+                
+            }
+            
+            
+            
+            print( "\ndebug1 equal press:\n result   = \(result) \n left = \(leftNumber) \n right= \(rightNumber)" )
+        }
+
+        
+    }
     
     
 
