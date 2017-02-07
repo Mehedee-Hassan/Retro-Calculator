@@ -196,7 +196,7 @@ class ViewController: UIViewController {
                         op = Operation.Empty
                         
                         
-                        result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                        result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
                         
                     }
                     else if op == Operation.Multiply {
@@ -214,7 +214,7 @@ class ViewController: UIViewController {
                         
                         
                         if tempnum != 0{
-                            result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                            result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
                         }
                         else {
                             result = "INF"
@@ -282,7 +282,7 @@ class ViewController: UIViewController {
                     op = Operation.Empty
                     
                     
-                    result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                    result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
                     
                 }
                 else if op == Operation.Multiply {
@@ -312,7 +312,7 @@ class ViewController: UIViewController {
                             result = "\(Double(rightNumber)!)"
                             
                         }else {
-                            result  = "\(Double(leftNumber)! - (Double(rightNumber))!)"
+                            result  = "\(Double(leftNumber)! / (Double(rightNumber))!)"
                         }
                         
                        
